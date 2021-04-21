@@ -1,61 +1,69 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 
 import * as actions from './fakturas.actions';
-import { initialState, NewsState } from './fakturas.model';
+import {FakturasState, initialState} from './fakturas.model';
+import {fakturas} from '../../core/config/fakturas';
 
 const reducer = createReducer(
   initialState,
-  on(actions.getNews, (state, { newsChannelId }) =>
-    newsChannelId === state.activeNewsChannelId
-      ? state
-      : {
-          ...state,
-          loading: true,
-          activeNewsChannelId: newsChannelId,
-          news: [],
-          newsPaginationNumber: 1,
-          areAllNewsLoaded: false,
-        }
+  on(actions.getFakturas, (state, {fakturas}) =>
+    ({
+      ...state,
+      fakturas,
+    })
   ),
-  on(actions.getNewsSuccess, (state, { news, maxNewsCount }) => {
-      const allNews = [...state.news, ...news];
-      return {
-          ...state,
-          news: allNews,
-          newsPaginationNumber: state.newsPaginationNumber + 1,
-          loading: false,
-          areAllNewsLoaded: allNews.length >= maxNewsCount,
-        };
-      }),
-  on(actions.getNewsFail, actions.getNewsByKeyWordFail, (state) => ({ ...state, loading: false })),
-
-  on(actions.getNewsByKeyWord, (state, { newsChannelId , keyword}) =>
-      (keyword === state.keyword && newsChannelId === state.activeNewsChannelId)
-      ? state
-      : {
-         ...state,
-         loading: true,
-         activeNewsChannelId: newsChannelId,
-         news: [],
-         newsPaginationNumber: 1,
-         areAllNewsLoaded: false,
-        keyword
-    }),
-    on(actions.getNewsByKeyWordSuccess, (state, { news, maxNewsCount }) => {
-        const allNews = [...state.news, ...news];
-        return {
-            ...state,
-            news: allNews,
-            newsPaginationNumber: state.newsPaginationNumber + 1,
-            loading: false,
-            areAllNewsLoaded: allNews.length >= maxNewsCount,
-        };
-    }),
+  on(actions.getSellers, (state, {sellers}) =>
+    ({
+      ...state,
+      sellers,
+    })
+  ),
+  on(actions.getFakturasBySeller, (state, {seller}) =>
+    ({
+      ...state,
+      filteredFakturas: state.fakturas.filter(faktura => faktura.seller === seller),
+    })
+  ),
+  on(actions.getCurrentFaktura, (state, {id}) =>
+    ({
+      ...state,
+      selectedFaktura: state.fakturas.filter(faktura => faktura.id == id)
+    })
+  ),
+  on(actions.resetCurrentFaktura, (state) =>
+    ({
+      ...state,
+      selectedFaktura: []
+    })
+  ),
+  on(actions.editSeller, (state, {seller}) =>
+    ({
+      ...state,
+      sellers: [
+        ...state.sellers.filter(sel => sel.id !== seller.id),
+        ...state.sellers.filter(sel => sel.id === seller.id).map(sel => sel = seller)
+      ],
+      fakturas: [...state.fakturas.filter(faktura => faktura.seller.id !== seller.id),
+        ...state.fakturas.filter(faktura => faktura.seller.id === seller.id).map(faktura => ({...faktura, seller}))]
+    })
+  ),
+  on(actions.resetFilteredFaktura, (state) =>
+    ({
+      ...state,
+      filteredFakturas: [],
+    })
+  ),
+  on(actions.addFaktura, (state, {faktura}) =>
+    ({
+      ...state,
+      fakturas: [...state.fakturas, faktura]
+    })
+  ),
 );
 
-export function newsReducer(
-  state: NewsState | undefined,
+export function fakturasReducer(
+  state: FakturasState | undefined,
   action: Action
-): NewsState {
+): FakturasState {
   return reducer(state, action);
 }

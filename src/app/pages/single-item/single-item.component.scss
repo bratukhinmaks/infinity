@@ -1,0 +1,19 @@
+.item {
+  &--container {
+    text-align: center;
+    padding: 20px 40px;
+    width: 400px;
+    margin: 10px auto;
+    border: 1px solid #eaeaea;
+    button {
+      background-color: #fd8c8c;
+      padding: 10px 20px;
+      color: black;
+      border: 1px solid #fd8c8c;
+      border-radius: 10px;
+    }
+  }
+  &--header {
+    font-weight: bold;
+  }
+}

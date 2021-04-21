@@ -1,31 +1,41 @@
-import { HttpErrorResponse } from '@angular/common/http';
-
 import { createAction, props } from '@ngrx/store';
 
-import { News } from './news.model';
+import {FakturasModel, Seller} from './fakturas.model';
 
-export const getNews = createAction(
-  '[News] Get News',
-  props<{ newsChannelId: string | number }>()
-);
-export const getNewsSuccess = createAction(
-  '[News] Get News Success',
-  props<{ news: News[], maxNewsCount: number}>()
-);
-export const getNewsFail = createAction(
-  '[News] Get News Fail',
-  props<{ error: HttpErrorResponse }>()
+export const getFakturas = createAction(
+  '[Fakturas] Get Fakturas',
+  props<{ fakturas: FakturasModel[]}>()
 );
 
-export const getNewsByKeyWord = createAction(
-    '[News] Get News By Keyword',
-    props<{ newsChannelId: string | number, keyword: string}>()
+export const getSellers = createAction(
+  '[Fakturas] Get Sellers',
+  props<{ sellers: Seller[]}>()
 );
-export const getNewsByKeyWordSuccess = createAction(
-    '[News] Get News By Keyword Success',
-    props<{ news: News[], maxNewsCount: number }>()
+
+export const getFakturasBySeller = createAction(
+    '[Fakturas] Get Fakturas By Sellers',
+    props<{ seller: Seller }>()
 );
-export const getNewsByKeyWordFail = createAction(
-    '[News] Get News By Keyword Fail',
-    props<{ error: HttpErrorResponse }>()
+
+export const addFaktura = createAction(
+  '[Fakturas] Add faktura',
+  props<{ faktura: FakturasModel}>()
+);
+
+export const editSeller = createAction(
+  '[Fakturas] Edit faktura',
+  props<{ seller: Seller}>()
+);
+
+export const getCurrentFaktura = createAction(
+  '[Fakturas] Get current faktura',
+  props<{ id: number}>()
+);
+
+export const resetCurrentFaktura = createAction(
+  '[Fakturas] Reset current faktura'
+);
+
+export const resetFilteredFaktura = createAction(
+  '[Fakturas] Reset filtered faktura'
 );

@@ -1,0 +1,15 @@
+<ng-select (change)="changeFilter($event)" [multiple]="false" *ngIf="sellers$ | async as sellers">
+  <ng-option *ngFor="let seller of sellers" [value]="seller">{{seller.name}}</ng-option>
+</ng-select>
+<div *ngIf="(filtered$ | async).length else all" class="fakturas--container">
+  <div *ngFor="let faktura of (filtered$ | async)">
+    <app-tile [facture]="faktura"></app-tile>
+  </div>
+</div>
+<ng-template #all>
+  <div *ngIf="facturas$ | async as fakturas" class="fakturas--container">
+    <div *ngFor="let faktura of fakturas">
+      <app-tile [facture]="faktura"></app-tile>
+    </div>
+  </div>
+</ng-template>

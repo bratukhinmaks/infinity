@@ -1,88 +1,17 @@
-@import '~styles/variables';
-
-.tile {
-  &__container {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-
-    .wm-h5 {
-      margin: 0;
-      display: inline-block;
-
-      &.checked {
-        padding-left: 15px;
-      }
-    }
-  }
-
-  &__header {
-    height: 100%;
-    min-width: 50%;
-    display: flex;
-    align-items: center;
-    padding-left: 23px;
-
-    & > .tile__element {
-      &_title {
-        width: 45%;
-      }
-      width: 27%;
-    }
-
-    &-check {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 40px;
-      width: 40px;
-      background-color: box-color(positive);
-      border-bottom-right-radius: 100px;
-      border-top-left-radius: 12px;
-
-      &-icon {
-        width: 16px;
-        height: auto;
-        stroke: box-color(white);
-        padding: 8px;
-      }
-    }
-  }
-
-  &__element {
-    color: box-color(grey-darkest);
-  }
-
-  &__matched-data {
+.tile{
+  &--container {
+    width: 500px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    padding: 0;
-    margin-top: 5px;
-    color: box-color(grey-darker);
-
-    li {
-      padding-right: 14px;
-      &:nth-child(1) {
-        list-style-type: none;
-        padding-left: 20px;
-      }
-      span {
-        position: relative;
-        left: -6px;
-      }
-    }
-  }
-
-  &__sizes {
-    display: inline;
-    color: box-color(grey);
-    border-radius: 4px;
-
-    &.defined {
-      color: box-color(positive);
-      background-color: box-color(positive-light);
-      padding: 5px 12px;
+    justify-content: space-around;
+    padding: 30px 40px;
+    border: 1px solid #dddbdb;
+    border-radius: 10px;
+    margin: 20px 20px;
+    &:hover {
+      transform: translateY(-5px);
+      transition: 0.2s ease-in-out all;
+      border: 1px solid #919090;
     }
   }
 }

@@ -18,6 +18,19 @@
 }
 
 .app-a {
-    margin-left: 1em;
-    margin-right: 0;
+  margin-left: 1em;
+  margin-right: 0;
+  font-size: 1.5rem;
+  color: lightblue;
+  transition: 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: blue;
+  }
+
+  &_active {
+    color: blue;
+  }
 }

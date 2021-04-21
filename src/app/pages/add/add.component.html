@@ -1,0 +1,31 @@
+<div class="add--container">
+  <h2 class="text-center mt-5">Add Fakture</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="number">Number</label>
+      <input class="form-control" id="number" formControlName="number">
+      <div *ngIf="form.get('number').touched && form.get('number').invalid" class="validation">
+        <small *ngIf="form.get('number').errors.required">Enter number</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input id="price" class="form-control" formControlName="price">
+      <div *ngIf="form.get('price').touched && form.get('price').invalid" class="validation">
+        <small *ngIf="form.get('price').errors.required">Enter price</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="seller">Seller</label>
+      <ng-select  [multiple]="false" *ngIf="sellers$ | async as sellers"  id="seller" formControlName="seller">
+        <ng-option *ngFor="let seller of sellers" [value]="seller">{{seller.name}}</ng-option>
+      </ng-select>
+      <div *ngIf="form.get('seller').touched && form.get('seller').invalid" class="validation">
+        <small *ngIf="form.get('seller').errors.required">Choose seller</small>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-success" [disabled]="form.invalid" >Add</button>
+
+  </form>
+</div>
+

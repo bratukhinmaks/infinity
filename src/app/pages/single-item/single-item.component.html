@@ -1,0 +1,17 @@
+<ng-container *ngIf="(item$ | async)[0] as item">
+  <div class="item--container">
+    <div class="item--header">Faktura</div>
+    <div class="item--sellers-date">
+      <p>Nazwa Sprzedawcy : {{item.seller.name}}</p>
+      <p>Address Sprzedawcy : {{item.seller.address}}</p>
+    </div>
+    <div class="item--price">
+      <p>Cena: {{item.price}}</p>
+    </div>
+    <div class="item--date">
+      <p>Data wystawienia :{{item.data}}</p>
+    </div>
+    <button routerLink="/">Powrot do wszystkich</button>
+  </div>
+
+</ng-container>

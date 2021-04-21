@@ -1,0 +1,8 @@
+<div *ngIf="sellers$ | async as sellers" class="sellers--list">
+  <div *ngFor="let seller of sellers, let i = index">
+    <app-seller-tile (closeEdit)="currentEdit=-1" [seller]="seller" [isEditable]="currentEdit === i">
+      <button (click)="currentEdit = i" class="sellers--button">Edit</button>
+      <button (click)="currentEdit = -1" class="sellers--button sellers--button-close">Close</button>
+    </app-seller-tile>
+  </div>
+</div>
