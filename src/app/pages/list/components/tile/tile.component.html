@@ -1,0 +1,65 @@
+<div class="tile__container">
+  <div class="tile__header">
+    <div *ngIf="isDefined" class="tile__header-check">
+      <i-feather name="check-circle" class="tile__header-check-icon"></i-feather>
+    </div>
+
+    <div class="tile__element_title">
+      <h5
+        [class.checked]="isDefined"
+        class="wm-h5"
+        [wmTooltip]="definition.baseDataSource?.description"
+        [showToolTip]="!isSegmented && !!definition.baseDataSource.description"
+      >
+        {{
+          isSegmented ? ('AUDIENCES.ODC.HEADER.TITLE' | translate) : definition.baseDataSource.name
+        }}
+      </h5>
+      <ng-container *ngIf="definition.baseDataSource?.matchedDataSourcesLabels.length">
+        <ul class="tile__matched-data">
+          <li class="wm-subtitle" *ngFor="let matchData of definition.baseDataSource.matchedDataSourcesLabels"><span>{{matchData | titlecase}}</span></li>
+        </ul>
+      </ng-container>
+    </div>
+
+    <div
+      *ngIf="isSegmented; else respondentSizes"
+      [ngClass]="isDefined ? 'wm-caption' : 'wm-subtitle'"
+      class="tile__element"
+    >
+      <div [class.defined]="isDefined" class="tile__sizes">
+        {{
+          isDefined
+            ? (definition.segmentSize | wmNumber: '1.0-0')
+            : ('AUDIENCES.DATA-SOURCES.NO_DATA_SET' | translate)
+        }}
+      </div>
+    </div>
+
+    <ng-template #respondentSizes>
+      <div [ngClass]="isDefined ? 'wm-caption' : 'wm-subtitle'" class="tile__element">
+        <div [class.defined]="isDefined" class="tile__sizes">
+          {{
+            isDefined
+              ? (definition.sampleSize | wmNumber: '1.0-0')
+              : ('AUDIENCES.DATA-SOURCES.NO_DATA_SET' | translate)
+          }}
+        </div>
+      </div>
+
+      <div [ngClass]="isDefined ? 'wm-caption' : 'wm-subtitle'" class="tile__element">
+        <div [class.defined]="isDefined" class="tile__sizes">
+          {{
+            isDefined
+              ? (definition.populationSize | wmNumber: '1.0-0')
+              : ('AUDIENCES.DATA-SOURCES.NO_DATA_SET' | translate)
+          }}
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <app-data-sources-tile-buttons
+    [definition]="definition"
+    [isSegmented]="isSegmented"
+  ></app-data-sources-tile-buttons>
+</div>
